@@ -12,7 +12,7 @@ function App() {
   const insertLambdaName = process.env.REACT_APP_INSERT_FUNCTION_NAME;
   const deleteLambdaName = process.env.REACT_APP_DELETE_FUNCTION_NAME;
   const editLambdaName = process.env.REACT_APP_EDIT_FUNCTION_NAME;
-
+  AWS_SDK_LOAD_CONFIG = 1;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -74,7 +74,7 @@ function App() {
   };
 
   const callEditLambdaFunction = async (id) => {
-    const lambda = new AWS.Lambda();
+    const lambda = new AWS.Lambda({ region: 'us-east-1' });
     const editData = {
       id: id,
       newStatus: 'Completed'
@@ -100,7 +100,7 @@ function App() {
   };
 
   const callDeleteLambdaFunction = async (id) => {
-    const lambda = new AWS.Lambda();
+    const lambda = new AWS.Lambda({ region: 'us-east-1' });
     const deleteData = {
       id: id,
     };
