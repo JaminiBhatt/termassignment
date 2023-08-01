@@ -4,9 +4,9 @@ import AWS from 'aws-sdk';
 import axios from 'axios';
 
 AWS.config.update({
-  accessKeyId: 'ASIATVLZYESXICSOLWHF',
-    secretAccessKey: 'zsHPzCan95bSiczJfQnnD1WfejcmnfljCvcJzRK7',
-    sessionToken: 'FwoGZXIvYXdzEFAaDOF1AQ4p9Y7rk9HveiLAAZBtBIdJnuXjcG1O0xt3CdPGQXPqQkWl9U1TRGtdpQeGwA+0Y7S65LmBS79rhrho39mqhrAQIniBoWjz7KUK8z85Cx9de4DMjVj7BXYfEl2qKVMA1TXkHBaevxfkC0rwugD7UIALZ51FsIo+LZnMaJQiPefAKn8mrHfsXM+C/2mZYUpOqtfZLK2CpVPSlpUFLXncYjsK0KniuQs0ROHBY2BzSn+bg1x4SSw2HeFcxAIiKL8f9xtsxM6glCbmd3XqzijKuaSmBjIth5WmeSBMekrrGP1eRbI7SCOUkpEEdJSfbM0H8uGnevWTUwqowLr9yxburZiF',
+  accessKeyId: 'ASIATVLZYESXMTMW7TVZ',
+    secretAccessKey: '7Lak1eqCwmvt64YSxd8rVetah9XTw0v2MhMR0IwM',
+    sessionToken: 'FwoGZXIvYXdzEFQaDJ4I4kk5TlP/ZijWKSLAATfbJIStdx0rxA5Spw/YNUXhToW8I0TlPG+p+wPx1x8VEgXjTwNXRzx4BKnFwhQTiTu5Aj3u2ibsihDUAy18PPBDsxNEeEmy2+OHTYtVe470yA8gPCefyrNvcZcqKLMrOICgVxJq4HBu3PPF+eplC8b6alQWSZ2vR9j/5M4TbjqCnIywzD1ft8lvOzXxhAjOvZWI5PhsURhpySd4PoafSB9Rf6yVFZbXu5fYB2QaXyMW4wS6p+dvaUxz1hJh03eC4CjYqqWmBjItSMLGElP09Smi5UFUAanLOSVyKKcV35qYTpZ4D/8R3phQ+O+mL89hqQX39GDw',
     region: 'us-east-1',
 });
 
@@ -23,7 +23,7 @@ function App() {
     const fetchData = async () => {
       try {
         const response = await axios.get(fetchAPI);
-        const resData = JSON.parse(response.data.body);
+        const resData = JSON.parse(response.data);
         setTasks(resData);
 
       } catch (error) {
