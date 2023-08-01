@@ -127,7 +127,7 @@ function App() {
     try {
       const textToSend = text;
       const response = await axios.post(sendToQueueAPI, { text: textToSend });
-      if (response.data.statusCode === 200) {
+      if (response.status === 200) {
         await axios.post(sendEmailAPI);
       }
       console.log('Message sent to queue');
