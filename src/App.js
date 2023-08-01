@@ -3,6 +3,12 @@ import "./App.css";
 import AWS from 'aws-sdk';
 import axios from 'axios';
 
+AWS.config.update({
+  accessKeyId: 'ASIATVLZYESXICSOLWHF',
+    secretAccessKey: 'zsHPzCan95bSiczJfQnnD1WfejcmnfljCvcJzRK7',
+    sessionToken: 'FwoGZXIvYXdzEFAaDOF1AQ4p9Y7rk9HveiLAAZBtBIdJnuXjcG1O0xt3CdPGQXPqQkWl9U1TRGtdpQeGwA+0Y7S65LmBS79rhrho39mqhrAQIniBoWjz7KUK8z85Cx9de4DMjVj7BXYfEl2qKVMA1TXkHBaevxfkC0rwugD7UIALZ51FsIo+LZnMaJQiPefAKn8mrHfsXM+C/2mZYUpOqtfZLK2CpVPSlpUFLXncYjsK0KniuQs0ROHBY2BzSn+bg1x4SSw2HeFcxAIiKL8f9xtsxM6glCbmd3XqzijKuaSmBjIth5WmeSBMekrrGP1eRbI7SCOUkpEEdJSfbM0H8uGnevWTUwqowLr9yxburZiF',
+    region: 'us-east-1',
+});
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -12,7 +18,6 @@ function App() {
   const insertLambdaName = process.env.REACT_APP_INSERT_FUNCTION_NAME;
   const deleteLambdaName = process.env.REACT_APP_DELETE_FUNCTION_NAME;
   const editLambdaName = process.env.REACT_APP_EDIT_FUNCTION_NAME;
-  AWS_SDK_LOAD_CONFIG = 1;
 
   useEffect(() => {
     const fetchData = async () => {
