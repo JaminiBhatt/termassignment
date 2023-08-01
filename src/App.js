@@ -49,7 +49,7 @@ function App() {
   };
 
   const callInsertLambdaFunction = async (data, id) => {
-    const lambda = new AWS.Lambda();
+    const lambda = new AWS.Lambda({ region: 'us-east-1' });
     const newData = {
       id: id,
       ...data,
