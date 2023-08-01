@@ -23,8 +23,7 @@ function App() {
     const fetchData = async () => {
       try {
         const response = await axios.get(fetchAPI);
-        const resData = JSON.parse(response.data);
-        setTasks(resData);
+        setTasks(response.data);
 
       } catch (error) {
         console.error('Error fetching data:', error);
