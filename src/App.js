@@ -8,16 +8,14 @@ import axios from 'axios';
 
 function App() {
   const [tasks, setTasks] = useState([]);
+  const fetchAPI = process.env.FETCH_TASK_API_URL;
+  const sendToQueueAPI = process.env.SEND_QUEUE_API_URL;
+  const sendemailAPI = process.env.SEND_EMAIL_API_URL;
+  const insertLambdaName = process.env.INSERT_FUNCTION_NAME;
+  const deleteLambdaName = process.env.DELETE_FUNCTION_NAME;
+  const editLambdaName = process.env.EDIT_FUNCTION_NAME;
 
   useEffect(() => {
-
-    const fetchAPI = process.env.FETCH_TASK_API_URL;
-    const sendToQueueAPI = process.env.SEND_QUEUE_API_URL;
-    const sendemailAPI = process.env.SEND_EMAIL_API_URL;
-    const insertLambdaName = process.env.INSERT_FUNCTION_NAME;
-    const deleteLambdaName = process.env.DELETE_FUNCTION_NAME;
-    const editLambdaName = process.env.EDIT_FUNCTION_NAME;
-
     const fetchData = async () => {
       try {
         const response = await axios.get(fetchAPI);
