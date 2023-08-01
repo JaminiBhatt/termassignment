@@ -8,12 +8,44 @@ import axios from 'axios';
 
 function App() {
   const [tasks, setTasks] = useState([]);
-  const fetchAPI = process.env.FETCH_TASK_API_URL;
-  const sendToQueueAPI = process.env.SEND_QUEUE_API_URL;
-  const sendemailAPI = process.env.SEND_EMAIL_API_URL;
-  const insertLambdaName = process.env.INSERT_FUNCTION_NAME;
-  const deleteLambdaName = process.env.DELETE_FUNCTION_NAME;
-  const editLambdaName = process.env.EDIT_FUNCTION_NAME;
+  // const fetchAPI = process.env.FETCH_TASK_API_URL;
+  // const sendToQueueAPI = process.env.SEND_QUEUE_API_URL;
+  // const sendemailAPI = process.env.SEND_EMAIL_API_URL;
+  // const insertLambdaName = process.env.INSERT_FUNCTION_NAME;
+  // const deleteLambdaName = process.env.DELETE_FUNCTION_NAME;
+  // const editLambdaName = process.env.EDIT_FUNCTION_NAME;
+
+  const [fetchAPI, setFetchAPI] = useState('');
+  const [sendToQueueAPI, setSendToQueueAPI] = useState('');
+  const [sendEmailAPI, setSendEmailAPI] = useState('');
+  const [insertLambdaName, setInsertLambdaName] = useState('');
+  const [deleteLambdaName, setDeleteLambdaName] = useState('');
+  const [editLambdaName, setEditLambdaName] = useState('');
+
+  useEffect(() => {
+    const fetchVariables = async () => {
+      
+      const cloudFormation = new AWS.CloudFormation();
+
+      try {
+        // Get the CloudFormation stack outputs
+        const stackName = 'B00929835';
+        const stackOutputs = await cloudFormation.describeStacks({ StackName: stackName }).promise();
+        const outputs = stackOutputs.Stacks[0].Outputs;
+
+        // Set the environment variables from the stack outputs
+        setFetchAPI(outputs.find(output => output.OutputKey === 'FetchTaskAPIURL').OutputValue);
+        setSendToQueueAPI(outputs.find(output => output.OutputKey === 'SendToQueueAPIURL').OutputValue);
+        setSendEmailAPI(outputs.find(output => output.OutputKey === 'SendEmailSNSAPIURL').OutputValue);
+        setInsertLambdaName(outputs.find(output => output.OutputKey === 'InsertFunctionLambdaName').OutputValue);
+        setDeleteLambdaName(outputs.find(output => output.OutputKey === 'DeleteFunctionLambdaName').OutputValue);
+        setEditLambdaName(outputs.find(output => output.OutputKey === 'EditFunctionLambdaName').OutputValue);
+      } catch (error) {
+        console.error('Error fetching CloudFormation stack outputs:', error);
+      }
+    };
+    fetchVariables();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -125,7 +157,7 @@ function App() {
       const textToSend = text;
       const response = await axios.post(sendToQueueAPI, { text: textToSend });
       if (response.data.statusCode === 200) {
-        await axios.post(sendemailAPI);
+        await axios.post(sendEmailAPI);
       }
       console.log('Message sent to queue');
     } catch (error) {
