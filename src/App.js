@@ -6,12 +6,12 @@ import axios from 'axios';
 
 function App() {
   const [tasks, setTasks] = useState([]);
-  const fetchAPI = process.env.FETCH_TASK_API_URL;
-  const sendToQueueAPI = process.env.SEND_QUEUE_API_URL;
-  const sendEmailAPI = process.env.SEND_EMAIL_API_URL;
-  const insertLambdaName = process.env.INSERT_FUNCTION_NAME;
-  const deleteLambdaName = process.env.DELETE_FUNCTION_NAME;
-  const editLambdaName = process.env.EDIT_FUNCTION_NAME;
+  const fetchAPI = process.env.REACT_APP_FETCH_TASK_API_URL;
+  const sendToQueueAPI = process.env.REACT_APP_SEND_QUEUE_API_URL;
+  const sendEmailAPI = process.env.REACT_APP_SEND_EMAIL_API_URL;
+  const insertLambdaName = process.env.REACT_APP_INSERT_FUNCTION_NAME;
+  const deleteLambdaName = process.env.REACT_APP_DELETE_FUNCTION_NAME;
+  const editLambdaName = process.env.REACT_APP_EDIT_FUNCTION_NAME;
 
 
   useEffect(() => {
