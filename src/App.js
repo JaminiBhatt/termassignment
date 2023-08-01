@@ -3,12 +3,13 @@ import "./App.css";
 import AWS from 'aws-sdk';
 import axios from 'axios';
 
-AWS.config.update({
-  region: 'us-east-1',
-  accessKeyId: 'ASIATVLZYESXMT4VASOU',
-  secretAccessKey: 'u+grTq39HqQBk7rHQRgCkwk9VCGv/9hmtFzq7nU4',
-  sessionToken: 'FwoGZXIvYXdzECIaDJGutlC3LNDQkPvJGyLAAXRzXrB6vIsXSjMhI46cqAE4GekH2soRjbDyiQd2giYWJIcZz1YCiRDCfyxebMKRJsLo6PzwXtxpGaNCTvh8Dn2J9+/bBNCYrVh36TurTwUxQ0C5ZniYZHLccsUotstz2QM5A5MV5IiwP3ygA3qHMjIWSD0lC3WbNmD2oHpvYJvTecrNxVt1gIzCKqeS6jLg65L4cdb9KdFEZLYCFS1pLVtDDOzCLGV1vwNrCDgS5Vpldc6HjNRbZjAXabbxQyntRiiFoZqmBjItSRwpjO3XTbmrxtgVirvdIBdQgGIXd6UBbRLDEOUxUAXMdQQ4hfy3VXr5txaD',
-});
+const fetchAPI = process.env.FETCH_TASK_API_URL;
+const sendToQueueAPI = process.env.SEND_QUEUE_API_URL;
+const sendemailAPI = process.env.SEND_EMAIL_API_URL;
+const insertLambdaName = process.env.INSERT_FUNCTION_NAME;
+const deleteLambdaName = process.env.DELETE_FUNCTION_NAME;
+const editLambdaName = process.env.EDIT_FUNCTION_NAME;
+
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -16,7 +17,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://hej4oe6pae.execute-api.us-east-1.amazonaws.com/dev/fetchdata');
+        const response = await axios.get(fetchAPI);
         const resData = JSON.parse(response.data.body);
         setTasks(resData);
 
@@ -55,7 +56,7 @@ function App() {
     };
 
     const params = {
-      FunctionName: 'Serverless-insertLambda-Sa5qYDzixlFc',
+      FunctionName: insertLambdaName,
       Payload: JSON.stringify(newData),
     };
 
@@ -79,7 +80,7 @@ function App() {
       newStatus: 'Completed'
     };
     const params = {
-      FunctionName: 'Serverless-editLambda-BPjEq0h3jdgQ',
+      FunctionName: editLambdaName,
       Payload: JSON.stringify(editData),
     };
 
@@ -104,7 +105,7 @@ function App() {
       id: id,
     };
     const params = {
-      FunctionName: 'Serverless-deleteLambda-PhpaoRy2iLpy',
+      FunctionName: deleteLambdaName,
       Payload: JSON.stringify(deleteData),
     };
 
@@ -121,9 +122,9 @@ function App() {
     // const sendMessage = async (text) => {
     try {
       const textToSend = text;
-      const response = await axios.post('https://hej4oe6pae.execute-api.us-east-1.amazonaws.com/dev/sendmessagequeue', { text: textToSend });
+      const response = await axios.post(sendToQueueAPI, { text: textToSend });
       if (response.data.statusCode === 200) {
-        await axios.post('https://hej4oe6pae.execute-api.us-east-1.amazonaws.com/dev/sendemail');
+        await axios.post(sendemailAPI);
       }
       console.log('Message sent to queue');
     } catch (error) {
