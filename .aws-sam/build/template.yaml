@@ -1,0 +1,78 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'Serverless
+
+  Sample SAM Template for Serverless
+
+  '
+Globals:
+  Function:
+    Timeout: 60
+    MemorySize: 128
+Resources:
+  insertLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: insertLambda
+      Handler: index.insertLambdahandler
+      Runtime: nodejs14.x
+      Architectures:
+      - x86_64
+      Role: arn:aws:iam::252047795374:role/LabRole
+    Metadata:
+      SamResourceId: insertLambda
+  deleteLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: deleteLambda
+      Handler: index.deleteLambdahandler
+      Runtime: nodejs14.x
+      Architectures:
+      - x86_64
+      Role: arn:aws:iam::252047795374:role/LabRole
+    Metadata:
+      SamResourceId: deleteLambda
+  fetchLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: fetchLambda
+      Handler: index.fetchLambdahandler
+      Runtime: nodejs14.x
+      Architectures:
+      - x86_64
+      Role: arn:aws:iam::252047795374:role/LabRole
+    Metadata:
+      SamResourceId: fetchLambda
+  editLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: editLambda
+      Handler: index.editLambdahandler
+      Runtime: nodejs14.x
+      Architectures:
+      - x86_64
+      Role: arn:aws:iam::252047795374:role/LabRole
+    Metadata:
+      SamResourceId: editLambda
+  queueLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: queueLambda
+      Handler: index.queueHandler
+      Runtime: nodejs14.x
+      Architectures:
+      - x86_64
+      Role: arn:aws:iam::252047795374:role/LabRole
+    Metadata:
+      SamResourceId: queueLambda
+  notificationLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: notificationLambda
+      Handler: index.notificationHandler
+      Runtime: nodejs14.x
+      Architectures:
+      - x86_64
+      Role: arn:aws:iam::252047795374:role/LabRole
+    Metadata:
+      SamResourceId: notificationLambda
